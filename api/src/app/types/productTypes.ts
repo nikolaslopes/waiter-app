@@ -1,4 +1,4 @@
-import type { ICategory } from "./categoryTypes";
+import type { ICategoryData } from "./categoryTypes";
 
 export interface IProductData {
 	name: string;
@@ -6,14 +6,5 @@ export interface IProductData {
 	imagePath: string | undefined;
 	price: string;
 	ingredients: string;
-	category: ICategory;
-}
-
-export interface IProductRepository
-	extends Omit<IProductData, "price" | "ingredients"> {
-	price: number;
-	ingredients: Array<{
-		name: string;
-		icon: string;
-	}>;
+	category: ICategoryData;
 }
