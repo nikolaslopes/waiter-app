@@ -1,6 +1,6 @@
 import { Category } from "../models/Category";
 
-import type { ICategory } from "../types/categoriesTypes";
+import type { ICategory } from "../types/categoryTypes";
 
 class CategoriesRepository {
 	async findAll() {
