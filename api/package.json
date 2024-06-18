@@ -6,6 +6,7 @@
 	"scripts": {
 		"build": "tsc",
 		"dev": "npm run services:up && nodemon src/index.ts",
+		"start": "npm run build && node dist",
 		"services:up": "docker start waiterapp-db",
 		"format:check": "biome format ./src",
 		"format:fix": "biome format --write ./src",
