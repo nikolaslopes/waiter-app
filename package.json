@@ -1,0 +1,8 @@
+{
+	"name": "waiter-app",
+	"version": "1.0.0",
+	"description": "Application to manage restaurant orders",
+	"scripts": {},
+	"author": "Nikolas Lopes de Alencar",
+	"license": "MIT"
+}
