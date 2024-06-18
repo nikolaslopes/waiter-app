@@ -2,10 +2,10 @@ import type { Request, Response } from "express";
 
 import { Category } from "../../models/Category";
 
-import type { ICategoryData } from "../../types/categoryTypes";
+import type { CategoryDataType } from "../../global/types";
 
 export async function createCategory(request: Request, response: Response) {
-	const { name, icon }: ICategoryData = request.body;
+	const { name, icon }: CategoryDataType = request.body;
 
 	if (!name) {
 		return response.status(400).json({

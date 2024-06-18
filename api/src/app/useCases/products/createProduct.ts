@@ -2,11 +2,11 @@ import type { Request, Response } from "express";
 
 import { Product } from "../../models/Product";
 
-import type { IProductData } from "../../types/productTypes";
+import type { ProductDataType } from "../../global/types";
 
 export async function createProduct(request: Request, response: Response) {
 	const imagePath = request.file?.filename;
-	const { name, description, price, ingredients, category }: IProductData =
+	const { name, description, price, ingredients, category }: ProductDataType =
 		request.body;
 
 	const product = await Product.create({

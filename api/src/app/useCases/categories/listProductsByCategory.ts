@@ -1,4 +1,5 @@
 import type { Request, Response } from "express";
+
 import { Product } from "../../models/Product";
 
 export async function listProductsByCategory(
