@@ -5,7 +5,8 @@
 	"main": "index.js",
 	"scripts": {
 		"build": "tsc",
-		"dev": "nodemon src/index.ts",
+		"dev": "npm run services:up && nodemon src/index.ts",
+		"services:up": "docker start waiterapp-db",
 		"format:check": "biome format ./src",
 		"format:fix": "biome format --write ./src",
 		"lint:check": "biome lint ./src",
@@ -21,6 +22,7 @@
 		"typescript": "^5.4.5"
 	},
 	"dependencies": {
-		"express": "^4.19.2"
+		"express": "^4.19.2",
+		"mongoose": "^8.4.1"
 	}
 }
