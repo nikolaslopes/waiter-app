@@ -1,0 +1,27 @@
+{
+	"name": "waiterapp-frontend",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"dev": "vite",
+		"preview": "vite preview",
+		"build": "tsc && vite build",
+		"format:check": "biome format ./src",
+		"format:fix": "biome format --write ./src",
+		"lint:check": "biome lint ./src",
+		"lint:fix": "biome lint --apply ./src"
+	},
+	"dependencies": {
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.8.1",
+		"@types/react": "^18.2.66",
+		"@types/react-dom": "^18.2.22",
+		"@vitejs/plugin-react": "^4.2.1",
+		"typescript": "^5.2.2",
+		"vite": "^5.2.0"
+	}
+}
