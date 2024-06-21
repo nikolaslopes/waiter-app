@@ -1,14 +1,29 @@
-import { Actions, ModalBody, OrderDetails, Overlay } from "./styles";
+import { useEffect } from "react";
 
+import { formatCurrency } from "../../utils/formatCurrency";
 import type { OrderModalProps } from "./types";
 
+import { Actions, ModalBody, OrderDetails, Overlay } from "./styles";
 import closeIcon from "../../assets/images/close-icon.svg";
-import { formatCurrency } from "../../utils/formatCurrency";
 
-export function OrderModal({ visible, order }: OrderModalProps) {
+export function OrderModal({ visible, onClose, order }: OrderModalProps) {
 	if (!visible || !order) {
 		return null;
 	}
+
+	useEffect(() => {
+		function handleKeyDown(event: KeyboardEvent) {
+			if (event.key === "Escape") {
+				onClose();
+			}
+		}
+
+		document.addEventListener("keydown", handleKeyDown);
+
+		return () => {
+			document.removeEventListener("keydown", handleKeyDown);
+		};
+	}, [onClose]);
 
 	const total = order.products.reduce((acc, { product, quantity }) => {
 		return acc + product.price * quantity;
@@ -20,7 +35,7 @@ export function OrderModal({ visible, order }: OrderModalProps) {
 				<header>
 					<strong>Mesa {order.table}</strong>
 
-					<button type="button">
+					<button type="button" onClick={onClose}>
 						<img src={closeIcon} alt="Close" />
 					</button>
 				</header>
