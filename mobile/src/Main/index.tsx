@@ -1,5 +1,11 @@
-import { Text } from "../components/Text";
+import { Header } from "../components/Header";
+
+import { Container } from "./styles";
 
 export function Main() {
-	return <Text>Render main</Text>;
+	return (
+		<Container>
+			<Header />
+		</Container>
+	);
 }
