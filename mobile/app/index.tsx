@@ -1,4 +1,5 @@
 import { useFonts } from "expo-font";
+import { StatusBar } from "react-native";
 
 import { Main } from "@/src/Main";
 
@@ -13,5 +14,10 @@ export default function HomeScreen() {
 		return null;
 	}
 
-	return <Main />;
+	return (
+		<>
+			<StatusBar barStyle={"dark-content"} />
+			<Main />
+		</>
+	);
 }
