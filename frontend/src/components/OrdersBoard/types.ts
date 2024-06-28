@@ -1,4 +1,4 @@
-import type { Order } from "../../types/Order";
+import type { Order } from "../../global/types/Order";
 
 export interface OrdersBoardProps {
 	icon: string;
