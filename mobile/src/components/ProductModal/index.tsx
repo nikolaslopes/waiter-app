@@ -1,13 +1,19 @@
 import type { Product } from "@/src/types/Product";
-import { Modal } from "react-native";
+import { formatCurrency } from "@/src/utils/formatCurrency";
+import { FlatList, Modal } from "react-native";
+import { Button } from "../Button";
 import { Close } from "../Icons/Close";
 import { Text } from "../Text";
 import {
 	CloseButton,
+	Footer,
+	FooterContainer,
 	Header,
 	Image,
+	IngredientItem,
 	IngredientsContainer,
 	ModalBody,
+	PriceContainer,
 } from "./styles";
 
 interface ProductModalProps {
@@ -48,12 +54,42 @@ export function ProductModal({ visible, onClose, product }: ProductModalProps) {
 					</Text>
 				</Header>
 
-				<IngredientsContainer>
-					<Text weight="600" color="#666">
-						Ingredientes
-					</Text>
-				</IngredientsContainer>
+				{product.ingredients.length > 0 && (
+					<IngredientsContainer>
+						<Text weight="600" color="#666">
+							Ingredientes
+						</Text>
+
+						<FlatList
+							data={product.ingredients}
+							keyExtractor={(ingredient) => ingredient._id}
+							showsVerticalScrollIndicator={false}
+							style={{ marginVertical: 16 }}
+							renderItem={({ item: ingredient }) => (
+								<IngredientItem>
+									<Text>{ingredient.icon}</Text>
+									<Text size={14} color="#666">
+										{ingredient.name}
+									</Text>
+								</IngredientItem>
+							)}
+						/>
+					</IngredientsContainer>
+				)}
 			</ModalBody>
+
+			<Footer>
+				<FooterContainer>
+					<PriceContainer>
+						<Text color="#666">Preço</Text>
+						<Text size={20} weight="600" color="#666">
+							{formatCurrency(product.price)}
+						</Text>
+					</PriceContainer>
+
+					<Button onPress={() => alert("a")}>Adicionar ao pedido</Button>
+				</FooterContainer>
+			</Footer>
 		</Modal>
 	);
 }
