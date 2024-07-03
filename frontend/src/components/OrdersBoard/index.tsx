@@ -19,7 +19,6 @@ export function OrdersBoard({ icon, title, orders }: OrdersBoardProps) {
 		setIsModalVisible(false);
 		setSelectedOrder(null);
 	}
-	console.log(selectedOrder);
 
 	return (
 		<Container>
