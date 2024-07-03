@@ -36,6 +36,7 @@ export function ProductModal({
 	function handleAddToCart() {
 		// biome-ignore lint/style/noNonNullAssertion:
 		onAddToCart(product!);
+		onClose();
 	}
 
 	return (
