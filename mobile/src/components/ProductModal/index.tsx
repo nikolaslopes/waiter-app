@@ -20,11 +20,22 @@ interface ProductModalProps {
 	visible: boolean;
 	onClose: () => void;
 	product: Product | null;
+	onAddToCart: (product: Product) => void;
 }
 
-export function ProductModal({ visible, onClose, product }: ProductModalProps) {
+export function ProductModal({
+	visible,
+	onClose,
+	product,
+	onAddToCart,
+}: ProductModalProps) {
 	if (!product) {
 		return null;
+	}
+
+	function handleAddToCart() {
+		// biome-ignore lint/style/noNonNullAssertion:
+		onAddToCart(product!);
 	}
 
 	return (
@@ -87,7 +98,7 @@ export function ProductModal({ visible, onClose, product }: ProductModalProps) {
 						</Text>
 					</PriceContainer>
 
-					<Button onPress={() => alert("a")}>Adicionar ao pedido</Button>
+					<Button onPress={handleAddToCart}>Adicionar ao pedido</Button>
 				</FooterContainer>
 			</Footer>
 		</Modal>
