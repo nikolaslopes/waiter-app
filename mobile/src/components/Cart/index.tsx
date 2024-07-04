@@ -24,9 +24,15 @@ interface CartProps {
 	cartItems: CartItem[];
 	onAdd: (product: Product) => void;
 	onDecrement: (product: Product) => void;
+	onConfirmOrder: () => void;
 }
 
-export function Cart({ cartItems, onAdd, onDecrement }: CartProps) {
+export function Cart({
+	cartItems,
+	onAdd,
+	onDecrement,
+	onConfirmOrder,
+}: CartProps) {
 	const [isOrderConfirmedModalVisible, setIsOrderConfirmedModalVisible] =
 		useState(true);
 
@@ -39,6 +45,7 @@ export function Cart({ cartItems, onAdd, onDecrement }: CartProps) {
 	}
 
 	function handleCloseConfirmedModal() {
+		onConfirmOrder();
 		setIsOrderConfirmedModalVisible(false);
 	}
 
