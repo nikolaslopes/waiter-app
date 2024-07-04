@@ -7,9 +7,11 @@ import { TableModal } from "../components/TableModal";
 
 import { Cart } from "../components/Cart";
 
+import { ActivityIndicator } from "react-native";
 import type { CartItem } from "../types/CartItem";
 import type { Product } from "../types/Product";
 import {
+	CanteredContainer,
 	CategoriesContainer,
 	Container,
 	Footer,
@@ -17,10 +19,15 @@ import {
 	MenuContainer,
 } from "./styles";
 
+import { Empty } from "../components/Icons/Empty";
+import { Text } from "../components/Text";
+
 export function Main() {
 	const [isTableModalVisible, setIsTableModalVisible] = useState(false);
 	const [selectedTable, setSelectedTable] = useState("");
 	const [cartItems, setCartItems] = useState<CartItem[]>([]);
+	const [isLoading, setIsLoading] = useState(false);
+	const [products] = useState<Product[]>([]);
 
 	function handleSaveTable(table: string) {
 		setSelectedTable(table);
@@ -97,19 +104,39 @@ export function Main() {
 					onCancelOrder={handleCancelOrder}
 				/>
 
-				<CategoriesContainer>
-					<Categories />
-				</CategoriesContainer>
+				{isLoading ? (
+					<CanteredContainer>
+						<ActivityIndicator color="#D73035" size="large" />
+					</CanteredContainer>
+				) : (
+					<>
+						<CategoriesContainer>
+							<Categories />
+						</CategoriesContainer>
 
-				<MenuContainer>
-					<Menu onAddToCart={handleAddToCart} />
-				</MenuContainer>
+						{products.length > 0 ? (
+							<MenuContainer>
+								<Menu products={products} onAddToCart={handleAddToCart} />
+							</MenuContainer>
+						) : (
+							<CanteredContainer>
+								<Empty />
+								<Text color="#666" style={{ marginTop: 24 }}>
+									Nenhum produto foi encontrado!
+								</Text>
+							</CanteredContainer>
+						)}
+					</>
+				)}
 			</Container>
 
 			<Footer>
 				<FooterContainer>
 					{!selectedTable && (
-						<Button onPress={() => setIsTableModalVisible(true)}>
+						<Button
+							onPress={() => setIsTableModalVisible(true)}
+							disabled={isLoading}
+						>
 							Novo pedido
 						</Button>
 					)}
