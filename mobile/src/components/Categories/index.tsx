@@ -1,9 +1,10 @@
-import { categories } from "@/src/mocks/categories";
 import { useState } from "react";
 import { FlatList } from "react-native";
 
 import type { Category } from "@/src/types/Category";
+
 import { Text } from "../Text";
+
 import { CategoryContainer, Icon } from "./styles";
 
 interface CategoriesProps {
