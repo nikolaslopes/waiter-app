@@ -19,12 +19,14 @@ import {
 	Summary,
 	TotalContainer,
 } from "./styles";
+import { httpClient } from "@/src/services/client/httpClient";
 
 interface CartProps {
 	cartItems: CartItem[];
 	onAdd: (product: Product) => void;
 	onDecrement: (product: Product) => void;
 	onConfirmOrder: () => void;
+	selectedTable: string;
 }
 
 export function Cart({
@@ -32,6 +34,7 @@ export function Cart({
 	onAdd,
 	onDecrement,
 	onConfirmOrder,
+	selectedTable,
 }: CartProps) {
 	const [isOrderConfirmedModalVisible, setIsOrderConfirmedModalVisible] =
 		useState(false);
@@ -41,7 +44,20 @@ export function Cart({
 		return acc + cartItem.quantity * cartItem.product.price;
 	}, 0);
 
-	function handleConfirmOrder() {
+	async function handleConfirmOrder() {
+		setIsLoading(true);
+
+		const payload = {
+			table: selectedTable,
+			products: cartItems.map((cartItem) => ({
+				product: cartItem.product._id,
+				quantity: cartItem.quantity,
+			})),
+		};
+
+		await httpClient.post("/orders", payload);
+
+		setIsLoading(false);
 		setIsOrderConfirmedModalVisible(true);
 	}
 
