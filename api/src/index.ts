@@ -1,15 +1,20 @@
 import path from "node:path";
+import http from "node:http";
 import express from "express";
 import mongoose from "mongoose";
 import "express-async-errors";
+import { Server } from "socket.io";
 
 import { router } from "./router";
 import { errorHandler } from "./app/middlewares/errorHandler";
 
+const app = express();
+const server = http.createServer(app);
+export const io = new Server(server);
+
 mongoose
 	.connect("mongodb://localhost:27017")
 	.then(() => {
-		const app = express();
 		const port = 8080;
 
 		app.use((request, response, next) => {
@@ -27,7 +32,7 @@ mongoose
 		app.use(router);
 		app.use(errorHandler);
 
-		app.listen(port, () => {
+		server.listen(port, () => {
 			console.log(`🔥 Server is running on http://localhost:${port}`);
 		});
 	})

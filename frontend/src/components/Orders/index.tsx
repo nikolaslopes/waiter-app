@@ -4,9 +4,25 @@ import { OrdersBoard } from "../OrdersBoard";
 import { Container } from "./styles";
 import type { Order } from "../../global/types/Order";
 import { httpClient } from "../../services/client/httpClient";
+import socketIo from "socket.io-client";
 
 export function Orders() {
 	const [orders, setOrders] = useState<Order[]>([]);
+
+	useEffect(() => {
+		const socket = socketIo("http://localhost:8080", {
+			transports: ["websocket"],
+		});
+
+		socket.on("orders@new", (order) => {
+			setOrders((prevState) => prevState.concat(order));
+		});
+		console.log("test");
+
+		return () => {
+			socket.close();
+		};
+	}, []);
 
 	useEffect(() => {
 		httpClient.get("/orders").then(({ data }) => {
