@@ -1,6 +1,7 @@
-import axios from 'axios'
+import axios from "axios";
+
+export const baseURL = "http://192.168.1.11:8080";
 
 export const httpClient = axios.create({
-  baseURL: "http://192.168.1.12:8080",
+	baseURL: baseURL,
 });
-
