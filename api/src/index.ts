@@ -12,6 +12,13 @@ mongoose
 		const app = express();
 		const port = 8080;
 
+		app.use((request, response, next) => {
+			response.setHeader("Access-Control-Allow-Origin", "*");
+			response.setHeader("Access-Control-Allow-Methods", "*");
+			response.setHeader("Access-Control-Allow-Headers", "*");
+
+			next();
+		});
 		app.use(
 			"/uploads",
 			express.static(path.resolve(__dirname, "..", "uploads")),
